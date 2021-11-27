@@ -35,7 +35,7 @@ const App = () => {
 
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Profile" component={ProfileList} />
+            <Stack.Screen name="Profile List" component={ProfileList} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
