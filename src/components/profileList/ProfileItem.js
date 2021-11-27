@@ -10,6 +10,9 @@ import StyleSheetFactory from "./styles.ProfileList";
  */
 class ProfileItem extends PureComponent {
 
+    /**
+     * render function for profile list item 
+     */
     render() {
         const { item } = this.props;
         const styles = StyleSheetFactory.getStyles();
@@ -19,8 +22,10 @@ class ProfileItem extends PureComponent {
                 <FastImage
                     source={{
                         uri: item.img,
+                        priority: FastImage.priority.normal,
                     }}
                     style={styles.imageContainer}
+
                 />
                 <View style={styles.nameContainer}>
                     <Text style={styles.name}>{item.name}</Text>

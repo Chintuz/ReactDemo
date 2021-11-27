@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { combineReducers } from 'redux';
 import ProfileReducer from './profileList/profileList.Reducer';
 

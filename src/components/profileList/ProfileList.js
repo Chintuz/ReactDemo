@@ -14,6 +14,11 @@ import { profileLables } from "../../utils/lables";
  */
 class ProfileList extends Component {
 
+    /**
+     * This method manage rerendering of component
+     * @param {object} nextProps - show upcoming props 
+     * @param {object} nextState - show current nextProps
+     */
     shouldComponentUpdate(nextProps, nextState) {
 
         const { errorMessage: errorMessageOld, profileList: profileListOld } = this.props;
@@ -27,10 +32,17 @@ class ProfileList extends Component {
         return false
     }
 
+    /**
+     * This is a lifecycle method invoked once
+     * component is mounted
+     */
     componentDidMount() {
         this.fetchProfileData()
     }
 
+    /**
+     * This is a method to fetch profile data
+     */
     fetchProfileData = () => {
         const { getProfileList } = this.props
         getProfileList()
@@ -43,6 +55,9 @@ class ProfileList extends Component {
    */
     keyStockExtractor = (item, index) => index.toString();
 
+    /**
+     * This is a method to render the item of list
+     */
     renderItem = ({ item, index }) => (
         <ProfileItem
             item={item}
@@ -50,6 +65,9 @@ class ProfileList extends Component {
         />
     )
 
+    /**
+     * This is a render method of the component 
+     */
     render() {
         const { errorMessage, profileList } = this.props;
         const styles = StyleSheetFactory.getStyles();
@@ -65,7 +83,7 @@ class ProfileList extends Component {
                             renderItem={this.renderItem}
                         />
                         :
-                        <Text style={styles.loadingText}>{profileLables.loadingText}</Text>
+                        <Text style={styles.loadingText}>{profileLables.loading}</Text>
                 }
                 {
                     errorMessage ? showToast(errorMessage) : null

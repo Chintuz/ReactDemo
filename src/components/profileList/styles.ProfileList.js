@@ -2,12 +2,10 @@ import { StyleSheet } from 'react-native';
 import { normalize } from '../../utils/normalize';
 
 /**
- * Define stylesheet for ManageWatchlist
+ * Define stylesheet for Profile list
  */
 export default class StyleSheetFactory {
-    /**
-     * @param {Object} props - props is an object which contains colorcodes
-     */
+
     static getStyles() {
         return StyleSheet.create({
             listItemContainer: {

@@ -7,9 +7,8 @@ import { isProfileDataDiff } from '../../utils/utils';
 
 /**
  * This is a method to get profile list data
- * @param {object} action
  */
-export function* getProfileListData(action) {
+export function* getProfileListData() {
 
     try {
         let cachedProfileData = yield call(getCacheData, key.profileData);

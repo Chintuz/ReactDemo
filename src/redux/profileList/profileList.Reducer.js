@@ -2,7 +2,7 @@ import * as types from "./profileList.Types";
 import appState from "././profileList.State";
 
 /**
- * profileListReducer, The reducer is a pure function that takes the previous state and an action, and returns the next state. (previousState, action) => nextState.
+ * profileReducer, The reducer is a pure function that takes the previous state and an action, and returns the next state. (previousState, action) => nextState
  */
 const profileReducer = (state = appState.profile, action) => {
     /**

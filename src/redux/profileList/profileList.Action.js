@@ -1,7 +1,7 @@
 import * as types from "./profileList.Types";
 
 /**
- * clearSearchState, this will not take any argument and it clears the search text input
+ * getProfileList, this will set an action to get data for profile list
  */
 export const getProfileList = () => {
     return {
