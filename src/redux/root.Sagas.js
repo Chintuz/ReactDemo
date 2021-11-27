@@ -9,6 +9,7 @@ import { watchProfileList } from './profileList/profileList.Saga'
 function* rootSaga() {
   yield all([
     watchProfileList(),
+
   ]);
 }
 
