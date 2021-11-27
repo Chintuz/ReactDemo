@@ -1,6 +1,9 @@
-import { call, takeLatest } from 'redux-saga/effects';
+import { call, takeLatest, put } from 'redux-saga/effects';
 import * as types from './profileList.Types';
 import * as apis from './profileList.Api';
+import { setCacheData, getCacheData } from '../../utils/localStorage';
+import key from '../../utils/storageKeys';
+import { isProfileDataDiff } from '../../utils/utils';
 
 /**
  * This is a method to get profile list data
@@ -9,15 +12,37 @@ import * as apis from './profileList.Api';
 export function* getProfileListData(action) {
 
     try {
+        let cachedProfileData = yield call(getCacheData, key.profileData);
+
+        if (cachedProfileData && cachedProfileData[0]) {
+            yield put({
+                type: types.GET_PROFILE_LIST_SUCCESS,
+                payload: cachedProfileData,
+            });
+        }
+
         const response = yield call(apis.getProfileList);
 
         if (response && response.data) {
-            console.log("response success -> ", JSON.stringify(response.data))
+            if (isProfileDataDiff(cachedProfileData, response.data)) {
+                yield call(setCacheData, key.profileData, response.data);
+
+                yield put({
+                    type: types.GET_PROFILE_LIST_SUCCESS,
+                    payload: response.data,
+                });
+            }
         } else {
-            console.log("response other -> ", JSON.stringify(response.data))
+            yield put({
+                type: types.GET_PROFILE_LIST_ERROR,
+                payload: response ? response.toString() : "error",
+            });
         }
     } catch (e) {
-
+        yield put({
+            type: types.GET_PROFILE_LIST_ERROR,
+            payload: "Error:" + e,
+        });
     }
 
 }

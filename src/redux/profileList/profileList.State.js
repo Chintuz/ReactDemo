@@ -1,5 +1,5 @@
 export default {
-    profle: {
+    profile: {
         listData: [],       // store list data 
         errorMessage: "",   // store error message if any
     }

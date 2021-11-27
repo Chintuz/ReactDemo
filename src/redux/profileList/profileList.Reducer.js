@@ -4,7 +4,7 @@ import appState from "././profileList.State";
 /**
  * profileListReducer, The reducer is a pure function that takes the previous state and an action, and returns the next state. (previousState, action) => nextState.
  */
-const profileReducer = (state = appState.profle, action) => {
+const profileReducer = (state = appState.profile, action) => {
     /**
      * @param {Object|string} state, action - state is the previousState and action is the particular action type.
      */
@@ -22,7 +22,7 @@ const profileReducer = (state = appState.profle, action) => {
             return {
                 ...state,
                 errorMessage: action.payload,
-                listData: []
+                listData: state.listData || []
             };
         }
 
@@ -31,3 +31,5 @@ const profileReducer = (state = appState.profle, action) => {
 
     }
 }
+
+export default profileReducer;
