@@ -10,6 +10,12 @@ const profileReducer = (state = appState.profile, action) => {
      */
     switch (action.type) {
 
+        case types.GET_PROFILE_LIST: {
+            return {
+                ...state,
+                errorMessage: ""
+            };
+        }
         case types.GET_PROFILE_LIST_SUCCESS: {
             return {
                 ...state,

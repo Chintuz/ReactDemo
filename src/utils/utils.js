@@ -1,4 +1,6 @@
 import Toast from 'react-native-simple-toast';
+import { Alert } from 'react-native';
+import { profileLables } from './lables';
 
 export const isProfileDataDiff = (arrayOne, arrayTwo) => {
     if (!arrayOne || (arrayOne && !arrayOne[0])) return true
@@ -8,6 +10,17 @@ export const isProfileDataDiff = (arrayOne, arrayTwo) => {
     return filteredData && filteredData.length > 0
 }
 
-export const showToast = (message) => {
-    Toast.show(message)
+export const showError = (message, isToast, press) => {
+    if (isToast) {
+        Toast.show(message)
+    } else {
+        Alert.alert(
+            message,
+            profileLables.retry,
+            [
+                { text: profileLables.ok, onPress: press },
+            ],
+            { cancelable: false }
+        )
+    }
 }

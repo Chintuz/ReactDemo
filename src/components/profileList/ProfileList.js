@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { Text, FlatList, View } from "react-native";
 import { ProfileItem } from '.'
 import { getProfileList } from "../../redux/profileList/profileList.Action";
-import { isProfileDataDiff, showToast } from "../../utils/utils";
-import { normalize } from "../../utils/normalize";
+import { isProfileDataDiff, showError } from "../../utils/utils";
 import StyleSheetFactory from "./styles.ProfileList";
 import { profileLables } from "../../utils/lables";
 
@@ -86,7 +85,9 @@ class ProfileList extends Component {
                         <Text style={styles.loadingText}>{profileLables.loading}</Text>
                 }
                 {
-                    errorMessage ? showToast(errorMessage) : null
+                    errorMessage ? showError(errorMessage,
+                        (profileList && profileList[0]),
+                        this.fetchProfileData) : null
                 }
             </View>
         )
