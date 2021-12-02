@@ -2,8 +2,10 @@ import React, { PureComponent } from "react";
 import { View, Text } from "react-native";
 import FastImage from 'react-native-fast-image'
 import StyleSheetFactory from "./styles.ProfileList";
-
-
+import { downloadFile, deleteImages } from "../../utils/localCache";
+import store from '../../redux/store'
+import CustomImage from "../common/CustomImage";
+import DefaultImage from '../../assets/index'
 /**
  * This is a ProfileList list component
  * It will render list of option chain data
@@ -19,13 +21,11 @@ class ProfileItem extends PureComponent {
 
         return (
             <View style={styles.listItemContainer}>
-                <FastImage
-                    source={{
-                        uri: item.img,
-                        priority: FastImage.priority.normal,
-                    }}
+                <CustomImage
+                    source={{ uri: item.img }}
+                    defaultSource={DefaultImage}
                     style={styles.imageContainer}
-
+                    networkAvailable={true}
                 />
                 <View style={styles.nameContainer}>
                     <Text style={styles.name}>{item.name}</Text>

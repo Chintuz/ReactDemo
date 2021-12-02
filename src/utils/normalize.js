@@ -1,8 +1,5 @@
-import { Dimensions, PixelRatio } from 'react-native';
-
-const SCREEN_WIDTH = Dimensions.get('window').height < Dimensions.get('window').width
-  ? Dimensions.get('window').height
-  : Dimensions.get('window').width;
+import { PixelRatio } from 'react-native';
+import { SCREEN_WIDTH } from './appConstants';
 
 /**
  * Dimensions, will give the width and height of the device

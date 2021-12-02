@@ -6,6 +6,7 @@ import { getProfileList } from "../../redux/profileList/profileList.Action";
 import { isProfileDataDiff, showError } from "../../utils/utils";
 import StyleSheetFactory from "./styles.ProfileList";
 import { profileLables } from "../../utils/lables";
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 /**
  * This is a ProfileList list component
@@ -36,7 +37,64 @@ class ProfileList extends Component {
      * component is mounted
      */
     componentDidMount() {
-        this.fetchProfileData()
+        check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE)
+            .then((result) => {
+                switch (result) {
+                    case RESULTS.UNAVAILABLE:
+                        console.log('This feature is not available (on this device / in this context)');
+                        break;
+                    case RESULTS.DENIED:
+                        console.log('The permission has not been requested / is denied but requestable');
+                        this.checkPermissionAndProceed()
+                        break;
+                    case RESULTS.LIMITED:
+                        console.log('The permission is limited: some actions are possible');
+                        this.fetchProfileData()
+                        break;
+                    case RESULTS.GRANTED:
+                        console.log('The permission is granted');
+                        this.fetchProfileData()
+                        break;
+                    case RESULTS.BLOCKED:
+                        console.log('The permission is denied and not requestable anymore');
+                        this.checkPermissionAndProceed()
+                        break;
+                }
+            })
+            .catch((error) => {
+                // …
+            });
+
+    }
+
+    checkPermissionAndProceed = () => {
+
+        request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then((result) => {
+            switch (result) {
+                case RESULTS.UNAVAILABLE:
+                    console.log('This feature is not available (on this device / in this context)');
+                    break;
+                case RESULTS.DENIED:
+                    console.log('The permission has not been requested / is denied but requestable');
+                    showError('The permission has not been requested / is denied but requestable', false, this.checkPermissionAndProceed)
+
+                    break;
+                case RESULTS.LIMITED:
+                    console.log('The permission is limited: some actions are possible');
+                    this.fetchProfileData()
+                    break;
+                case RESULTS.GRANTED:
+                    console.log('The permission is granted');
+                    this.fetchProfileData()
+                    break;
+                case RESULTS.BLOCKED:
+                    console.log('The permission is denied and not requestable anymore');
+                    showError('The permission is denied and not requestable anymore', false, this.checkPermissionAndProceed)
+
+                    break;
+            }
+            // …
+        });
     }
 
     /**
@@ -61,6 +119,7 @@ class ProfileList extends Component {
         <ProfileItem
             item={item}
             index={index}
+            storagePermissionGranted={true}
         />
     )
 
@@ -77,9 +136,10 @@ class ProfileList extends Component {
                     profileList && profileList[0] ?
                         <FlatList
                             data={profileList}
-                            extraData={profileList}
+                            extraData={profileList.length}
                             keyExtractor={this.keyStockExtractor}
                             renderItem={this.renderItem}
+                            windowSize={4}
                         />
                         :
                         <Text style={styles.loadingText}>{profileLables.loading}</Text>

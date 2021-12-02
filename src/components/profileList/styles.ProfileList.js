@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { normalize } from '../../utils/normalize';
+import { SCREEN_WIDTH } from '../../utils/appConstants';
 
 /**
  * Define stylesheet for Profile list
@@ -16,7 +17,8 @@ export default class StyleSheetFactory {
             imageContainer: {
                 height: normalize(150),
                 borderTopLeftRadius: normalize(6),
-                borderTopRightRadius: normalize(6)
+                borderTopRightRadius: normalize(6),
+                width: SCREEN_WIDTH - normalize(20),
             },
             nameContainer: { height: normalize(30) },
             name: {

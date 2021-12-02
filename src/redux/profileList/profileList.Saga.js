@@ -4,6 +4,7 @@ import * as apis from './profileList.Api';
 import { setCacheData, getCacheData } from '../../utils/localStorage';
 import key from '../../utils/storageKeys';
 import { isProfileDataDiff } from '../../utils/utils';
+import store from '../store';
 
 /**
  * This is a method to get profile list data
@@ -23,7 +24,13 @@ export function* getProfileListData() {
         const response = yield call(apis.getProfileList);
 
         if (response && response.data) {
-            if (isProfileDataDiff(cachedProfileData, response.data)) {
+            const profileDiff = isProfileDataDiff(cachedProfileData, response.data);
+
+            console.log("profileDiff -> ", profileDiff)
+            if (profileDiff) {
+
+                // delete diff image..
+
                 yield call(setCacheData, key.profileData, response.data);
 
                 yield put({
@@ -49,3 +56,4 @@ export function* getProfileListData() {
 export function* watchProfileList() {
     yield takeLatest(types.GET_PROFILE_LIST, getProfileListData);
 }
+

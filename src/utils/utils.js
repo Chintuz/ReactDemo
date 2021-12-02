@@ -7,7 +7,7 @@ export const isProfileDataDiff = (arrayOne, arrayTwo) => {
     if (!arrayTwo || (arrayTwo && !arrayTwo[0])) return true
 
     let filteredData = arrayOne.filter(({ img: id1 }) => !arrayTwo.some(({ img: id2 }) => id2 === id1))
-    return filteredData && filteredData.length > 0
+    return filteredData
 }
 
 export const showError = (message, isToast, press) => {

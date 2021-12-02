@@ -1,5 +1,5 @@
 const storagekey = {
-    profileData: '@profileData'
+    profileData: '@profileData',
 }
 
 export default storagekey
