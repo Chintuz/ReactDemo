@@ -10,3 +10,8 @@ Below are the features involed in the app
 - here I have taken img as a unique key to compare the list
 - if both the data is same, it will ignore the response
 - if data is different, it will update storage and store both
+
+## New changes
+- Created a custom image compoenent that saves image to local cache
+- display image if already available in local
+- else download and display it
